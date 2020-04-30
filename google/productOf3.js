@@ -7,56 +7,92 @@ example:
   prodOf3[3, 1, 3, 2, 3] => 27
 */
 
-// *** DOESN'T WORK WITH CERTAIN NEGATIVES -
-// prodOf3([-10, -10, 1, 3, 2]) shoudl return 300, but returns 6
+// CLEANER
 
 const prodOf3 = (nums) => {
-  // declare three variables, representing the 3 largest numbers
-  // set them each equal to -Inf
-  let largest = -Infinity;
-  let secondLargest = -Infinity;
-  let thirdLargest = -Infinity;
+  let highest = Math.max(nums[0], nums[1]);
+  let lowest = Math.min(nums[0], nums[1]);
 
-  let smallest = Infinity;
-  let secondSmallest = Infinity;
+  let highestProdOf2 = nums[0] * nums[1];
+  let lowestProOf2 = nums[0] * nums[1];
 
-  // iterate over the array
-  nums.forEach((num) => {
-    // compare each value to one of the three largest num variables
-    // if the largest is replaced, the previous largest and 2nd becomes the 2nd and 3rd
-    // repeat this logic for the 2nd largest to the 3rd largest
-    // if num is only greater than 3rd largest, just replace it
-    if (num > largest) {
-      thirdLargest = secondLargest;
-      secondLargest = largest;
-      largest = num;
-    } else if (num > secondLargest) {
-      thirdLargest = secondLargest;
-      secondLargest = num;
-    } else if (num > thirdLargest) {
-      thirdLargest = num;
-    }
+  let hightestProdOf3 = nums[0] * nums[1] * nums[2];
 
-    if (num < smallest) {
-      secondSmallest = smallest;
-      smallest = num;
-    } else if (num < secondSmallest) {
-      secondSmallest = num;
-    }
-  });
+  for (let i = 2; i < nums.length; i++) {
+    const current = nums[i];
 
-  const positivesProd = largest * secondLargest * thirdLargest;
-  const negativesProd = secondSmallest * smallest * largest;
+    hightestProdOf3 = Math.max(
+      hightestProdOf3,
+      current * highestProdOf2,
+      current * lowestProOf2
+    );
 
-  if (negativesProd > positivesProd) return negativesProd;
+    highestProdOf2 = Math.max(
+      highestProdOf2,
+      current * highest,
+      current * lowest
+    );
 
-  return positivesProd;
+    lowestProOf2 = Math.min(lowestProOf2, current * highest, current * lowest);
+
+    highest = Math.max(highest, current);
+
+    lowest = Math.min(lowest, current);
+  }
+
+  return hightestProdOf3;
 };
 
 console.log(prodOf3([3, 1, 5, 2, 3]));
 console.log(prodOf3([3, 1, 3]));
 console.log(prodOf3([3, 1, 5, 2, -3]));
 console.log(prodOf3([-10, -10, 1, 3, 2]));
+
+// *** DOESN'T WORK WITH CERTAIN NEGATIVES -
+// prodOf3([-10, -10, 1, 3, 2]) shoudl return 300, but returns 6
+
+// const prodOf3 = (nums) => {
+//   // declare three variables, representing the 3 largest numbers
+//   // set them each equal to -Inf
+//   let largest = -Infinity;
+//   let secondLargest = -Infinity;
+//   let thirdLargest = -Infinity;
+
+//   let smallest = Infinity;
+//   let secondSmallest = Infinity;
+
+//   // iterate over the array
+//   nums.forEach((num) => {
+//     // compare each value to one of the three largest num variables
+//     // if the largest is replaced, the previous largest and 2nd becomes the 2nd and 3rd
+//     // repeat this logic for the 2nd largest to the 3rd largest
+//     // if num is only greater than 3rd largest, just replace it
+//     if (num > largest) {
+//       thirdLargest = secondLargest;
+//       secondLargest = largest;
+//       largest = num;
+//     } else if (num > secondLargest) {
+//       thirdLargest = secondLargest;
+//       secondLargest = num;
+//     } else if (num > thirdLargest) {
+//       thirdLargest = num;
+//     }
+
+//     if (num < smallest) {
+//       secondSmallest = smallest;
+//       smallest = num;
+//     } else if (num < secondSmallest) {
+//       secondSmallest = num;
+//     }
+//   });
+
+//   const positivesProd = largest * secondLargest * thirdLargest;
+//   const negativesProd = secondSmallest * smallest * largest;
+
+//   if (negativesProd > positivesProd) return negativesProd;
+
+//   return positivesProd;
+// };
 
 // const mergeSort = (nums) => {
 //   if (nums.length <= 1) {
