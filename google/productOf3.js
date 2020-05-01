@@ -47,6 +47,7 @@ console.log(prodOf3([3, 1, 5, 2, 3]));
 console.log(prodOf3([3, 1, 3]));
 console.log(prodOf3([3, 1, 5, 2, -3]));
 console.log(prodOf3([-10, -10, 1, 3, 2]));
+console.log(prodOf3([-1, -4, -50, -32, -3, -23]));
 
 // *** DOESN'T WORK WITH CERTAIN NEGATIVES -
 // prodOf3([-10, -10, 1, 3, 2]) shoudl return 300, but returns 6
