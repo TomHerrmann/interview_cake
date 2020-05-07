@@ -12,7 +12,7 @@ Assume that you have a function getRandom(floor, ceiling) for getting a random i
 
 const inPlaceShuffle = (arr) => {
   // loop through array
-  for (let currIndex = 0; currIndex < arr.lenght; currIndex++) {
+  for (let currIndex = 0; currIndex < arr.lenght - 1; currIndex++) {
     // at each index, perform getRandom method
     // floor is the current index, ceiling is the last arr index
     // once a current index has a new random element in place, it won't be changed
