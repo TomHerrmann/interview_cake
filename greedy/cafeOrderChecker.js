@@ -17,16 +17,16 @@ We'll represent each customer order as a unique integer.
 
 As an example,
 
-  Take Out Orders: [1, 3, 5]
- Dine In Orders: [2, 4, 6]
-  Served Orders: [1, 2, 4, 6, 5, 3]
+Take Out Orders: [1, 3, 5]
+Dine In Orders: [2, 4, 6]
+Served Orders: [1, 2, 4, 6, 5, 3]
 would not be first-come, first-served, since order 3 was requested before order 5 but order 5 was served first.
 
 But,
 
-  Take Out Orders: [17, 8, 24]
- Dine In Orders: [12, 19, 2]
-  Served Orders: [17, 8, 12, 19, 24, 2]
+Take Out Orders: [17, 8, 24]
+Dine In Orders: [12, 19, 2]
+Served Orders: [17, 8, 12, 19, 24, 2]
 would be first-come, first-served.
 
 Note: Order numbers are arbitrary. They do not have to be in increasing order.
@@ -51,6 +51,25 @@ const cafeOrderChecker = (takeOutOrders, dineInOrders, servedOrders) => {
 
   return true;
 };
+
+// const cafeOrderChecker1 = (takeOutOrders, dineInOrders, servedOrders) => {
+//   let takeOutIndex = 0;
+//   let dineInIndex = 0;
+
+//   for (let servedIndex = 0; servedIndex < servedOrders.length; servedIndex++) {
+//     const currentServed = servedOrders[servedIndex]
+
+//     if (currentServed === takeOutOrders[takeOutIndex]) {
+//       takeOutIndex++
+//     } else if (currentServed === dineInOrders[dineInIndex]) {
+//       dineInIndex++
+//     } else {
+//       return false
+//     }
+//   }
+
+//   return true;
+// };
 
 console.log(cafeOrderChecker([1, 3, 5], [2, 4, 6], [1, 2, 4, 6, 5, 3]));
 console.log(cafeOrderChecker([17, 8, 24], [12, 19, 2], [17, 8, 12, 19, 24, 2]));
