@@ -67,21 +67,19 @@ const mergeSortMeetings = (meetings) => {
 
 const mergeRanges = (meetings) => {
   // create a condensedMeetings array
-  const condensedMeetings = [];
+  const condensedMeetings = [Object.assign({}, meetings[0])];
 
   const sortedMeetings = mergeSortMeetings(meetings);
 
   sortedMeetings.forEach((currentMeeting) => {
-    if (condensedMeetings.length > 0) {
-      const lastMeeting = condensedMeetings[condensedMeetings.length - 1];
-      if (currentMeeting.startTime <= lastMeeting.endTime) {
-        console.log(currentMeeting);
-        lastMeeting.endTime = currentMeeting.endTime;
-      } else {
-        condensedMeetings.push(currentMeeting);
-      }
-    } else {
-      condensedMeetings[0] = Object.assign({}, currentMeeting);
+    const lastMeeting = condensedMeetings[condensedMeetings.length - 1];
+    if (currentMeeting.startTime <= lastMeeting.endTime) {
+      lastMeeting.endTime = Math.max(
+        lastMeeting.endTime,
+        currentMeeting.endTime
+      );
+    } else if (currentMeeting.endTime > lastMeeting.endTime) {
+      condensedMeetings.push(Object.assign({}, currentMeeting));
     }
   });
 
@@ -96,5 +94,14 @@ console.log(
     { startTime: 4, endTime: 8 },
     { startTime: 10, endTime: 12 },
     { startTime: 9, endTime: 10 },
+  ])
+);
+
+console.log(
+  mergeRanges([
+    { startTime: 1, endTime: 10 },
+    { startTime: 2, endTime: 6 },
+    { startTime: 3, endTime: 5 },
+    { startTime: 7, endTime: 9 },
   ])
 );
