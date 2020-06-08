@@ -33,57 +33,24 @@ Do not assume the meetings are in order. The meeting times are coming from multi
 Write a solution that's efficient even when we can't put a nice upper bound on the numbers representing our time ranges. Here we've simplified our times down to the number of 30-minute slots past 9:00 am. But we want the function to work even for very large numbers, like Unix timestamps. In any case, the spirit of the challenge is to merge meetings where startTime and endTime don't have an upper bound.
 */
 
-const mergeSortMeetings = (meetings) => {
-  if (meetings.length <= 1) return meetings;
+const mergeRanges = (meetingsArr) => {
+  const sortedMeetings = meetingsArr.sort((a, b) => a.startTime - b.startTime);
+  const condensedMeetings = [Object.assign({}, sortedMeetings[0])];
 
-  const middle = Math.floor(meetings.length / 2);
-
-  const left = meetings.slice(0, middle);
-  const right = meetings.slice(middle);
-
-  const sortedLeft = mergeSortMeetings(left);
-  const sortedRight = mergeSortMeetings(right);
-
-  const merged = [];
-  let rightIndex = 0;
-  let leftIndex = 0;
-
-  while (merged.length < left.length + right.length) {
-    if (
-      leftIndex < left.length &&
-      (rightIndex === right.length ||
-        sortedLeft[leftIndex].startTime < sortedRight[rightIndex].startTime)
-    ) {
-      merged.push(sortedLeft[leftIndex]);
-      leftIndex += 1;
-    } else {
-      merged.push(sortedRight[rightIndex]);
-      rightIndex += 1;
-    }
-  }
-
-  return merged;
-};
-
-const mergeRanges = (meetings) => {
-  // create a condensedMeetings array
-  const condensedMeetings = [Object.assign({}, meetings[0])];
-
-  const sortedMeetings = mergeSortMeetings(meetings);
-
-  sortedMeetings.forEach((currentMeeting) => {
+  for (let i = 1; i < sortedMeetings.length; i++) {
+    const currentMeeting = sortedMeetings[i];
     const lastMeeting = condensedMeetings[condensedMeetings.length - 1];
+
     if (currentMeeting.startTime <= lastMeeting.endTime) {
       lastMeeting.endTime = Math.max(
-        lastMeeting.endTime,
-        currentMeeting.endTime
+        currentMeeting.endTime,
+        lastMeeting.endTime
       );
     } else if (currentMeeting.endTime > lastMeeting.endTime) {
       condensedMeetings.push(Object.assign({}, currentMeeting));
     }
-  });
+  }
 
-  // return condensedMeeting array
   return condensedMeetings;
 };
 
@@ -105,3 +72,57 @@ console.log(
     { startTime: 7, endTime: 9 },
   ])
 );
+
+// const mergeSortMeetings = (meetings) => {
+//   if (meetings.length <= 1) return meetings;
+
+//   const middle = Math.floor(meetings.length / 2);
+
+//   const left = meetings.slice(0, middle);
+//   const right = meetings.slice(middle);
+
+//   const sortedLeft = mergeSortMeetings(left);
+//   const sortedRight = mergeSortMeetings(right);
+
+//   const merged = [];
+//   let rightIndex = 0;
+//   let leftIndex = 0;
+
+//   while (merged.length < left.length + right.length) {
+//     if (
+//       leftIndex < left.length &&
+//       (rightIndex === right.length ||
+//         sortedLeft[leftIndex].startTime < sortedRight[rightIndex].startTime)
+//     ) {
+//       merged.push(sortedLeft[leftIndex]);
+//       leftIndex += 1;
+//     } else {
+//       merged.push(sortedRight[rightIndex]);
+//       rightIndex += 1;
+//     }
+//   }
+
+//   return merged;
+// };
+
+// const mergeRanges = (meetings) => {
+//   // create a condensedMeetings array
+//   const condensedMeetings = [Object.assign({}, meetings[0])];
+
+//   const sortedMeetings = mergeSortMeetings(meetings);
+
+//   sortedMeetings.forEach((currentMeeting) => {
+//     const lastMeeting = condensedMeetings[condensedMeetings.length - 1];
+//     if (currentMeeting.startTime <= lastMeeting.endTime) {
+//       lastMeeting.endTime = Math.max(
+//         lastMeeting.endTime,
+//         currentMeeting.endTime
+//       );
+//     } else if (currentMeeting.endTime > lastMeeting.endTime) {
+//       condensedMeetings.push(Object.assign({}, currentMeeting));
+//     }
+//   });
+
+//   // return condensedMeeting array
+//   return condensedMeetings;
+// };
