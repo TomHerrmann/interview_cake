@@ -42,9 +42,17 @@ const checkoutOrder = (takeOutOrders, dineInOrders, servedOrders) => {
       takeOutIndex++;
     } else if (currentOrder === dineInOrders[dineInIndex]) {
       dineInIndex++;
-    } else return false;
+    } else {
+      return false;
+    }
   }
 
+  if (
+    takeOutIndex < takeOutOrders.length ||
+    dineInIndex < dineInOrders.length
+  ) {
+    return false;
+  }
   return true;
 };
 
