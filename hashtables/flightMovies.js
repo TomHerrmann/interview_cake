@@ -13,19 +13,21 @@ Optimize for runtime over memory
 */
 
 const flightMovies = (flightLength, movieLengths) => {
-  const timeDifference = new Set();
+  const passedMovieLengths = new Set();
 
   for (let i = 0; i < movieLengths.length; i++) {
-    timeDifference.add(flightLength - movieLengths[i]);
-  }
+    const currentMovieLength = movieLengths[i];
+    const timeLeft = flightLength - currentMovieLength;
 
-  for (let i = 0; i < movieLengths.length; i++) {
     if (
-      timeDifference.has(
-        flightLength - movieLengths[i] && movieLengths[i] * 2 !== flightLength
+      passedMovieLengths.has(
+        timeLeft && currentMovieLength * 2 !== flightLength
       )
-    )
+    ) {
       return true;
+    }
+
+    passedMovieLengths.add(currentMovieLength);
   }
 
   return false;
