@@ -15,22 +15,17 @@ If you had this thought, read the question again carefully. We're asking if any 
 */
 
 const palindrone = (str) => {
-  const cache = {};
+  const unpairedChars = new Set();
 
   for (let i = 0; i < str.length; i++) {
-    cache[str[i]] = cache[str[i]] + 1 || 1;
-  }
-
-  let passedOdd = false;
-
-  for (let ksys in cache) {
-    if (cache[key] % 2 !== 0) {
-      if (!passedOdd) passedOdd = true;
-      else return false;
+    if (unpairedChars.has(str[i])) {
+      unpairedChars.delete(str[i]);
+    } else {
+      unpairedChars.add(str[i]);
     }
-
-    return true;
   }
+
+  return unpairedChars.length <= 1;
 };
 
 console.log(palindrone('civic')); // => true
