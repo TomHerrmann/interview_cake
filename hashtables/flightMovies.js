@@ -19,11 +19,7 @@ const flightMovies = (flightLength, movieLengths) => {
     const currentMovieLength = movieLengths[i];
     const timeLeft = flightLength - currentMovieLength;
 
-    if (
-      passedMovieLengths.has(
-        timeLeft && currentMovieLength * 2 !== flightLength
-      )
-    ) {
+    if (passedMovieLengths.has(timeLeft)) {
       return true;
     }
 
