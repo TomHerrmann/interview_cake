@@ -13,7 +13,7 @@ const highestProdOf3 = (nums) => {
   let highestProdOf2 = (lowestProdOf2 = nums[0] * nums[1]);
   let highest = (lowest = nums[0]);
 
-  for (let i = 2; i < nums.length; i++) {
+  for (let i = 1; i < nums.length; i++) {
     const currentNum = nums[i];
 
     if (typeof currentNum !== 'number') {
