@@ -22,11 +22,19 @@ No "shorting"—you need to buy before you can sell. Also, you can't buy and sel
 */
 
 const getMaxProfit = (stockPrices) => {
+  if (stockPrices.length < 2) {
+    throw new Error('Array must contain 2 integers');
+  }
+
   let highestProfit = stockPrices[1] - stockPrices[0];
   let lowestBuyPrice = stockPrices[0];
 
   for (let i = 1; i < stockPrices.length; i++) {
     const currentPrice = stockPrices[i];
+
+    if (typeof currentPrice !== 'number') {
+      throw new Error('Array must contain only integers');
+    }
 
     highestProfit = Math.max(currentPrice - lowestBuyPrice, highestProfit);
     lowestBuyPrice = Math.min(currentPrice, lowestBuyPrice);
