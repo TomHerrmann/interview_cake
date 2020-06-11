@@ -34,6 +34,8 @@ Note: Order numbers are arbitrary. They do not have to be in increasing order.
 const cafeOrderChecker = (takeOutOrders, dineInOrders, servedOrders) => {
   let takeOutIndex = 0;
   let dineInIndex = 0;
+  const takeOutMax = takeOutOrders.length - 1;
+  const dineInMax = dineInOrders.length - 1;
 
   for (let servedIndex = 0; servedIndex < servedOrders.length; servedIndex++) {
     if (servedOrders[servedIndex] === takeOutOrders[takeOutIndex]) {
@@ -42,6 +44,8 @@ const cafeOrderChecker = (takeOutOrders, dineInOrders, servedOrders) => {
       dineInIndex++;
     } else return false;
   }
+
+  if (dineInIndex < dineInMax || takeOutIndex < takeOutMax) return false;
 
   return true;
 };
