@@ -27,11 +27,14 @@ const rotationPoint = (arr) => {
   let ceiling = arr.length;
 
   while (floor + 1 < ceiling) {
-    const middle = Math.floor((ceiling - floor) / 2);
+    const middle = Math.floor(floor + (ceiling - floor) / 2);
 
     if (arr[middle] < arr[middle - 1] && arr[middle] < arr[middle + 1]) {
       return middle;
-    } else if (arr[middle] > arr[middle - 1] && arr[middle] < arr[middle + 1]) {
+    } else if (arr[middle] > arr[0]) {
+      floor = middle + 1;
+    } else {
+      ceiling = middle;
     }
   }
 };
