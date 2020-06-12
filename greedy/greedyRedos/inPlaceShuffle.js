@@ -6,6 +6,18 @@ The shuffle must be "uniform," meaning each item in the original array must have
 Assume that you have a function getRandom(floor, ceiling) for getting a random integer that is >= floor and <= ceiling.
 */
 
-const getRandom = (floor, ceiling) => {
-  return Math.floor(Math.random() * ceiling - floor + 1 + floor);
+const getRandom = (ceil, floor) => {
+  return Math.floor(Math.random() * ceil - floor + 1 + floor);
+};
+
+const inPlaceShuffle = (arr) => {
+  for (let i = 0; i < arr.length - 1; i++) {
+    const random = getRandom(arr.length - 1, i);
+
+    if (random !== i) {
+      [arr[i], arr[random]] = [arr[random], arr[i]];
+    }
+  }
+
+  return arr;
 };
